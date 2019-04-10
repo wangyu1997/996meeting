@@ -1,0 +1,50 @@
+@import "./default";
+@import "./loading";
+
+ul, li {
+  list-style: none;
+}
+
+.clearfix {
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+    visibility: hidden;
+  }
+}
+
+.container {
+  display: flex;
+  .nav-left {
+    //width: 15%;
+    //min-width: 180px;
+    background-color: #001529;
+    color: #fff;
+    height: calc(100vh);
+  }
+  .main {
+    overflow: auto;
+    flex: 1;
+    height: calc(100vh);
+    background-color: @colorL;
+  }
+  .content {
+    position: relative;
+    padding: 20px;
+  }
+}
+
+.content-wrap {
+  background-color: @colorM;
+  border: 1px solid #e8e8e8;
+  margin-top: -3px;
+  .ant-table-wrapper {
+    margin-left: -1px;
+    margin-right: -1px;
+  }
+}
+
+.card-wrap{
+  margin-bottom: 10px;
+}
