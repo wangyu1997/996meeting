@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Form, Button, Checkbox, Input, Icon, Card, Row, Col} from 'antd'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import './index.less'
 import axios from "../../network"
 import Utils from "../../utils/utils"
@@ -38,20 +38,16 @@ class Group extends Component {
     }
 
 
-    getUrl = () => {
-        const num = Utils.randomNum(1, 25)
-        console.log(`/gallery/${num}.png`)
-        return `/gallery/${num}.png`
-    }
-
     formatCard = (list) => {
         return list.map((item, index) => {
-            const url = this.getUrl()
             return <Card
+                onClick={() => {
+                    this.props.history.push(`/user/task/detail/${item.id}`)
+                }}
                 key={index}
                 className='card-wrap'
                 cover={<div className='header-cover' alt='head_cover'
-                            style={{backgroundImage: `url(${url}`}}/>}
+                            style={{backgroundImage: `url(${item.head_img}`}}/>}
             >
                 <div className='title-container'>
                     {item.title}
@@ -62,15 +58,17 @@ class Group extends Component {
                 <div className='avatar-container'>
                     {Utils.getIconAvatar(item)}
                 </div>
+                <div className='time-container'>
+                    <Icon type='clock-circle' style={{marginRight: 10}}/>{Utils.formateDate(item.publish_time)}
+                    <Icon type='team'style={{marginRight: 10,marginLeft:10}}/>{Utils.formateDate(item.start_time)}
+                </div>
             </Card>
         })
     }
 
     render() {
-        this.getUrl()
         const {list} = this.state
-        console.log(list)
-        return <div className='group_page'>
+        return <div className='group_page home-wrap'>
             {this.formatCard(list)}
         </div>
     }

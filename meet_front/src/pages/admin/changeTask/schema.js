@@ -33,17 +33,17 @@ export default {
             placeholder: '请选择参会成员',
             rules: [{required: true, message: '请至少选择一个参与成员'}],
         }, {
-            type: 'UPLOAD',
-            label: '上传附件',
-            field: 'file_ids',
-            rules: [],
-        }, {
             type: 'INPUT',
             label: '头部图像',
             field: 'head_img',
             placeholder: '请输入头图',
             rules: [{required: true, message: '头图不为空'}],
             initialValue: '',
+        }, {
+            type: 'UPLOAD',
+            label: '上传附件',
+            field: 'file_ids',
+            rules: [],
         }
     ]
 }

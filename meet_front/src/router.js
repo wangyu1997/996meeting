@@ -22,8 +22,10 @@ import UserUpdateSummary from './pages/user/changeSummary'
 import UserCreateReport from './pages/user/createReport'
 import UserUpdateReport from './pages/user/changeReport'
 import NoAccess from './pages/noaccess'
-import Home from './pages/home'
+import Report from './pages/reports'
 import Group from './pages/group'
+import GroupDetail from './pages/group_detail'
+import ReportDetail from './pages/report_detail'
 
 export default class IRouter extends Component {
 
@@ -60,7 +62,7 @@ export default class IRouter extends Component {
                                               component={isAdmin ? AdminCreateSummary : NoAccess}/>
                                 <PrivateRoute path='/admin/updateSummary/:summary_id'
                                               component={isAdmin ? AdminUpdateSummary : NoAccess}/>
-                                <PrivateRoute path='/user/tasks' component={UserTask}/>
+                                <PrivateRoute extract path='/user/tasks' component={UserTask}/>
                                 <PrivateRoute path='/user/reports' component={UserReports}/>
                                 <PrivateRoute path='/user/summaries' component={UserSummaries}/>
                                 <PrivateRoute path='/user/createReport' component={UserCreateReport}/>
@@ -68,10 +70,14 @@ export default class IRouter extends Component {
                                 <PrivateRoute path='/user/createSummary' component={UserCreateSummary}/>
                                 <PrivateRoute path='/user/updateSummary/:summary_id'
                                               component={UserUpdateSummary}/>
-                                <PrivateRoute path='/home'
-                                              component={Group}/>
+                                <PrivateRoute path='/report'
+                                              component={Report}/>
                                 <PrivateRoute path='/group'
                                               component={Group}/>
+                                <PrivateRoute path='/user/task/detail/:task_id'
+                                              component={GroupDetail}/>
+                                <PrivateRoute path='/user/report/detail/:report_id'
+                                              component={ReportDetail}/>
                             </Switch>
                         </Admin>
                     }/>

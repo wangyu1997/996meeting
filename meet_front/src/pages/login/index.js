@@ -25,6 +25,7 @@ class Login extends Component {
             method: 'post'
         }).then((res) => {
             const role = Utils.judgeRole(res.user.authorities)
+            console.log(role)
             sessionStorage.setItem("role", role)
             sessionStorage.setItem("username", res.user.username)
             sessionStorage.setItem('avatar',res.user.avatar)
