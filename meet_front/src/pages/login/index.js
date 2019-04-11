@@ -25,10 +25,9 @@ class Login extends Component {
             method: 'post'
         }).then((res) => {
             const role = Utils.judgeRole(res.user.authorities)
-            console.log(role)
             sessionStorage.setItem("role", role)
             sessionStorage.setItem("username", res.user.username)
-            sessionStorage.setItem('avatar',res.user.avatar)
+            sessionStorage.setItem('avatar', res.user.avatar)
             this.props.history.push("/home")
         })
     }
@@ -42,7 +41,9 @@ class Login extends Component {
                     <Card
                         className='login_container'
                         title='欢迎登录组会管理后台'>
-                        <LoginForm handleLogin={(values) => this.handleLogin(values)}/>
+                        <LoginForm
+                            history={this.props.history}
+                            handleLogin={(values) => this.handleLogin(values)}/>
                     </Card>
                 </Col>
             </Row>
@@ -52,6 +53,11 @@ class Login extends Component {
 }
 
 class LoginForm extends React.Component {
+
+    state = {
+        history: this.props.history
+    }
+
     handleSubmit = (e) => {
         e.preventDefault()
         this.props.form.validateFields((err, values) => {
@@ -97,7 +103,9 @@ class LoginForm extends React.Component {
                     })(
                         <Checkbox>记住我</Checkbox>
                     )}
-                    <a className='login-form-register' href="">现在注册!</a>
+                    <a className='login-form-register' onClick={() => {
+                        this.state.history.push('/register')
+                    }}>现在注册!</a>
                     <a className="login-form-forgot" href="">忘记密码</a>
                 </FormItem>
                 <FormItem className='login_button_wrapper'>

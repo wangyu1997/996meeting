@@ -38,6 +38,7 @@ class Report extends Component {
     }
 
 
+
     formatCard = (list) => {
         return list.map((item, index) => {
             return (

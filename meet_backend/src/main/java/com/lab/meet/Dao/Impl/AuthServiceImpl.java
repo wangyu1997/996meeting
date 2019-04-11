@@ -7,6 +7,7 @@ import com.lab.meet.Repository.RoleRepository;
 import com.lab.meet.Repository.UserRepository;
 import com.lab.meet.Util.JwtTokenUtil;
 import com.lab.meet.Util.Utils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public User register(String username, String password, String email, String contact, HttpServletRequest request) throws Exception {
+    public User register(String avatar, String username, String password, String email, String contact, HttpServletRequest request) throws Exception {
         System.out.println(username + "====");
         if (userRepository.findUserByUsername(username) != null) {
             throw new Exception("用户名已存在");
@@ -67,6 +68,8 @@ public class AuthServiceImpl implements AuthService {
             roleRepository.save(role);
         }
         String default_avatar = Utils.getDefaultAvatarUrl(request, AVATAR_FOLDER, DEFAULT_AVATAR);
+        if (StringUtils.isNoneBlank(avatar) && Utils.isImagesTrue(avatar))
+            default_avatar = avatar;
         Set<Role> roleList = user.getRoles();
         roleList.add(role);
         user.setRoles(roleList);

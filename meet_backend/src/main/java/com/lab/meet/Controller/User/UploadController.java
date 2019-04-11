@@ -72,7 +72,6 @@ public class UploadController {
         try {
             detail_name = Utils.saveFileByDate(uploadfile, UPLOADED_FOLDER + DOC_FOLDER);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             return ResponseBody.failedRep();
         }
         String path = UPLOADED_FOLDER + DOC_FOLDER + detail_name;
@@ -106,25 +105,4 @@ public class UploadController {
         return ResponseBody.successRep(data);
     }
 
-    @ApiOperation(value = "用户头像上传", notes = "用户上传头像", httpMethod = "POST")
-    @PostMapping("/avatar")
-    public ResponseBody<?> uploadAvatar(
-            @RequestParam("file") MultipartFile uploadfile,
-            HttpServletRequest request) {
-        String detail_name;
-        if (uploadfile.isEmpty())
-            return ResponseBody.failedRep(Status.FILE_NOT_EXIST);
-        try {
-            detail_name = Utils.saveUploadedImage(uploadfile, UPLOADED_FOLDER + AVATAR_FOLDER);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return ResponseBody.failedRep();
-        }
-        String type = "avatar";
-        String name = detail_name;
-        String path = UPLOADED_FOLDER + AVATAR_FOLDER + name;
-        String url = Utils.getContentPath(request) + downloadRoute + "/" + AVATAR_FOLDER + detail_name;
-        FileEntity data = fileService.storeFile(type, name, path, url);
-        return ResponseBody.successRep(data);
-    }
 }

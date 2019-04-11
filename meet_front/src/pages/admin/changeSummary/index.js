@@ -76,7 +76,6 @@ class AdminUpdateSummary extends Component {
         const title = res.title
         const description = Utils.backHtml2Edit(res.description)
         const user_id = `${res.user.id}`
-        console.log(res)
         const task_id = `${res.task_id}`
         axios.ajax({
             url: '/user/search/users',

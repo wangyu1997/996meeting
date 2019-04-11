@@ -67,13 +67,14 @@ public class AuthController {
 
     @ApiOperation(value = "用户注册", notes = "根据用户名密码进行注册,返回用户信息", httpMethod = "POST")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "avatar", value = "用户头像", dataType = "String", paramType = "form"),
             @ApiImplicitParam(name = "username", value = "用户昵称", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name = "password", value = "用户密码", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name = "email", value = "用户邮箱", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name = "contact", value = "联系方式", required = true, dataType = "String", paramType = "form"),
     })
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseBody<?> register(String username, String password, String email, String contact, HttpServletRequest request) throws Exception {
-        return ResponseBody.successRep(authService.register(username, password, email, contact, request));
+    public ResponseBody<?> register(String avatar, String username, String password, String email, String contact, HttpServletRequest request) throws Exception {
+        return ResponseBody.successRep(authService.register(avatar, username, password, email, contact, request));
     }
 }  

@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -186,5 +188,15 @@ public class Utils {
             if (role.getName().toLowerCase().contains("admin"))
                 return true;
         return false;
+    }
+
+
+    public static boolean isImagesTrue(String posturl) throws IOException {
+        URL url = new URL(posturl);
+        HttpURLConnection urlcon = (HttpURLConnection) url.openConnection();
+        urlcon.setRequestMethod("POST");
+        urlcon.setRequestProperty("Content-type",
+                "application/x-www-form-urlencoded");
+        return (urlcon.getResponseCode() == HttpURLConnection.HTTP_OK);
     }
 }

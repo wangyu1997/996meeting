@@ -15,7 +15,9 @@ class GroupDetail extends Component {
             group_detail: {},
             group_success: false,
             task_id: this.props.match.params.task_id,
-            summaries: []
+            summaries: [],
+            file_success: false,
+            files: []
         }
         this.params = {}
     }
@@ -38,6 +40,7 @@ class GroupDetail extends Component {
                 group_success: true,
                 group_detail: res
             })
+            this.requestFiles(res.file_ids)
         })
     }
 
@@ -53,6 +56,23 @@ class GroupDetail extends Component {
             this.setState({
                 summary_success: true,
                 summaries: res
+            })
+        })
+    }
+
+    requestFiles = (file_ids) => {
+        axios.ajax({
+            url: '/public/file/multi/',
+            method: 'get',
+            data: {
+                params: {
+                    file_ids: file_ids
+                },
+            }
+        }).then((res) => {
+            this.setState({
+                file_success: true,
+                files: res
             })
         })
     }
@@ -76,8 +96,16 @@ class GroupDetail extends Component {
         )
     }
 
+    formatFile = (files) => {
+        return files.map((item, index) => {
+            return <div>
+                <a href={item.url} key={index}>{item.name}</a>
+            </div>
+        })
+    }
+
     render() {
-        const {group_detail, group_success, summaries} = this.state
+        const {group_detail, group_success, summaries, file_success, files} = this.state
         return <div className='group_detail_page'>
             {group_success ? <Card
                 className='card-wrap'
@@ -100,6 +128,12 @@ class GroupDetail extends Component {
                 </div>
                 <div className='users-container'>
                     汇报人: {group_detail.users.map((item) => item.username).join(',')}
+                </div>
+                <div className='file-container'>
+                    {file_success && files.length > 0 ? <div>
+                        <div>📎附件:</div>
+                        {this.formatFile(files)}
+                    </div> : ''}
                 </div>
             </Card> : ''}
             <Card title='组会总结'>

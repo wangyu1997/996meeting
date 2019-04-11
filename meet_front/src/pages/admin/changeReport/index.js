@@ -88,7 +88,6 @@ class AdminUpdateReport extends Component {
                     data: {},
                     method: 'get'
                 }).then((res) => {
-                    console.log(user_id)
                     this.setState({
                         loadSuccess: true,
                         formParams: {

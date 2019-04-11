@@ -60,7 +60,7 @@ class Group extends Component {
                 </div>
                 <div className='time-container'>
                     <Icon type='clock-circle' style={{marginRight: 10}}/>{Utils.formateDate(item.publish_time)}
-                    <Icon type='team'style={{marginRight: 10,marginLeft:10}}/>{Utils.formateDate(item.start_time)}
+                    <Icon type='team' style={{marginRight: 10, marginLeft: 10}}/>{Utils.formateDate(item.start_time)}
                 </div>
             </Card>
         })

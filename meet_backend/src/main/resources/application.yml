@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/meet_demo?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://${DB_PORT_3306_TCP_ADDR}:${DB_PORT_3306_TCP_PORT}/meet?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: 19970819wy
+    password: ${DB_ENV_MYSQL_ROOT_PASSWORD}
 
   jpa:
     hibernate:
@@ -23,7 +23,7 @@ server:
   port: 80
 
 upload:
-  baseFolder: /Users/wangyu/Desktop/upload/
+  baseFolder: ./upload/
   documents: documents/
   images: images/
   avatars: avatar/

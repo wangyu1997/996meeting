@@ -98,7 +98,6 @@ public class UserSummaryController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseBody<?> addSummary(String title, String description,
                                       Long task_id, Long user_id, boolean isAdmin, HttpServletRequest request) throws Exception {
-        System.out.println(user_id);
         User curr_user = Utils.getCurrentUser(authService, request, tokenHeader);
         if (curr_user == null)
             return ResponseBody.failedRep(Status.USER_NOT_LOGIN);

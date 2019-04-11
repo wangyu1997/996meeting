@@ -59,7 +59,6 @@ class AdminCreateSummary extends Component {
                 method: 'get'
             }).then((res) => {
                 const tasks = res
-                console.log(tasks)
                 this.setState({
                     loadSuccess: true,
                     formParams: {

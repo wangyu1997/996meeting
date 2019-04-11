@@ -57,7 +57,7 @@ public class AdminUserController {
     })
     @GetMapping("/page")
     public ResponseBody<?> findUsersByPage(String username, String email, String contact, Integer page, Integer pageSize) {
-        Page<User> users = userService.findUserByPage(username, email, contact, page-1, pageSize);
+        Page<User> users = userService.findUserByPage(username, email, contact, page - 1, pageSize);
         Map<String, Object> result = Utils.formatPagable(users);
         result.put("current", page);
         return ResponseBody.successRep(result);
@@ -115,7 +115,7 @@ public class AdminUserController {
     })
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseBody<?> addUser(String avatar, String username, String password, String email, String contact, String role_ids, HttpServletRequest request) throws Exception {
-        User user = authService.register(username, password, email, contact, request);
+        User user = authService.register(avatar, username, password, email, contact, request);
         if (StringUtils.isNoneBlank(avatar))
             user.setAvatar(avatar);
         user.setRoles(Utils.findRolesByIds(roleRepository, role_ids));

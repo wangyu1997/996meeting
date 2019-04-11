@@ -15,6 +15,8 @@ class ReportDetail extends Component {
             report_detail: {},
             report_success: false,
             report_id: this.props.match.params.report_id,
+            file_success: false,
+            files: []
         }
         this.params = {}
     }
@@ -26,15 +28,34 @@ class ReportDetail extends Component {
     requestDetail = () => {
         const {report_id} = this.state
         axios.ajax({
-            url: Api.Urls.querySummaryById + report_id,
+            url: Api.Urls.queryReportById + report_id,
             method: 'get',
             data: {
                 isShowLoading: true
             }
         }).then((res) => {
+            this.requestFiles(res.file_ids)
             this.setState({
                 report_success: true,
                 report_detail: res
+            })
+        })
+    }
+
+
+    requestFiles = (file_ids) => {
+        axios.ajax({
+            url: '/public/file/multi/',
+            method: 'get',
+            data: {
+                params: {
+                    file_ids: file_ids
+                },
+            }
+        }).then((res) => {
+            this.setState({
+                file_success: true,
+                files: res
             })
         })
     }
@@ -44,9 +65,17 @@ class ReportDetail extends Component {
         return `/gallery/${num}.png`
     }
 
+    formatFile = (files) => {
+        return files.map((item, index) => {
+            return <div>
+                <a href={item.url} key={index}>{item.name}</a>
+            </div>
+        })
+    }
+
     render() {
         const url = this.getUrl()
-        const {report_detail, report_success} = this.state
+        const {report_detail, report_success, file_success, files} = this.state
         return <div className='group_detail_page'>
             {report_success ? <Card
                 className='card-wrap'
@@ -68,6 +97,12 @@ class ReportDetail extends Component {
                 </div>
                 <div className='users-container'>
                     汇报人: {report_detail.user.username}
+                </div>
+                <div className='file-container'>
+                    {file_success&&files.length>0 ? <div>
+                        <div>📎附件:</div>
+                        {this.formatFile(files)}
+                    </div> : ''}
                 </div>
             </Card> : ''}
         </div>

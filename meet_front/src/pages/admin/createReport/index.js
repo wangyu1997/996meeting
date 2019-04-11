@@ -31,7 +31,6 @@ class AdminCreateReport extends Component {
     }
 
     addReport = (params) => {
-        console.log(params)
         axios.ajax({
             url: Api.Urls.adminAddReport,
             method: 'post',

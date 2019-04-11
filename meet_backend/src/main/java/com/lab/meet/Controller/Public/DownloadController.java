@@ -1,6 +1,5 @@
 package com.lab.meet.Controller.Public;
 
-import com.sun.deploy.net.URLEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,6 +15,7 @@ import javax.annotation.processing.FilerException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 @RestController
